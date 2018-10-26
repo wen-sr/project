@@ -8,7 +8,7 @@
     <!--<properties resource="datasource.properties"></properties>-->
 
     <!--指定特定数据库的jdbc驱动jar包的位置-->
-    <classPathEntry location="src\main\resources\mysql-connector-java-5.1.8-bin.jar"/>
+    <classPathEntry location="src\main\resources\ojdbc14.jar"/>
 
     <context id="default" targetRuntime="MyBatis3">
         <!--<property resource="datasource.properties"></property>-->
@@ -20,10 +20,10 @@
         </commentGenerator>
 
         <!--jdbc的数据库连接 -->
-        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://127.0.0.1:3306/wms_db"
-                        userId="root"
-                        password="Xxzx2018">
+        <jdbcConnection driverClass="oracle.jdbc.driver.OracleDriver"
+                        connectionURL="jdbc:oracle:thin:@141.168.1.11:1521:prd1"
+                        userId="wh1"
+                        password="wh1">
         </jdbcConnection>
 
 
@@ -38,7 +38,7 @@
             targetProject     指定在该项目下所在的路径
         -->
         <!--<javaModelGenerator targetPackage="com.mmall.pojo" targetProject=".\src\main\java">-->
-        <javaModelGenerator targetPackage="com.wensir.project.pojo.wmsdb" targetProject="./src/main/java">
+        <javaModelGenerator targetPackage="com.lhwl.jsb.report.pojo.prd1" targetProject="./src/main/java">
             <!-- 是否允许子包，即targetPackage.schemaName.tableName -->
             <property name="enableSubPackages" value="false"/>
             <!-- 是否对model添加 构造函数 -->
@@ -52,7 +52,7 @@
         <!--mapper映射文件生成所在的目录 为每一个数据库的表生成对应的SqlMap文件 -->
         <!--<sqlMapGenerator targetPackage="mappers" targetProject=".\src\main\resources">-->
         <!--<sqlMapGenerator targetPackage="mappers" targetProject="./src/main/resources">-->
-        <sqlMapGenerator targetPackage="com.wensir.project.dao.wmsdb" targetProject="./src/main/java">
+        <sqlMapGenerator targetPackage="com.lhwl.jsb.report.dao.prd1" targetProject="./src/main/java">
             <property name="enableSubPackages" value="false"/>
         </sqlMapGenerator>
 
@@ -64,7 +64,7 @@
 
         <!-- targetPackage：mapper接口dao生成的位置 -->
         <!--<javaClientGenerator type="XMLMAPPER" targetPackage="com.mmall.dao" targetProject=".\src\main\java">-->
-        <javaClientGenerator type="XMLMAPPER" targetPackage="com.wensir.project.dao.wmsdb" targetProject="./src/main/java">
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.lhwl.jsb.report.dao.prd1" targetProject="./src/main/java">
             <!-- enableSubPackages:是否让schema作为包的后缀 -->
             <property name="enableSubPackages" value="false" />
         </javaClientGenerator>
@@ -76,7 +76,7 @@
         <!--<table tableName="userInfo" domainObjectName="UserInfo" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>-->
         <!--<table tableName="DEVICE_TRANS" domainObjectName="DeviceTrans" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>-->
         <!--<table tableName="INFOR_ERROR" domainObjectName="InforError" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>-->
-        <table tableName="wms_goods" domainObjectName="WmsGoods" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+        <table tableName="WEN_TEST" domainObjectName="WenTest" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
 
         <!-- geelynote mybatis插件的搭建 -->
     </context>

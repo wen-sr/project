@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wensir.project.dao.wmsdb.WmsGoodsMapper" >
+  <resultMap id="BaseResultMap" type="com.wensir.project.pojo.wmsdb.WmsGoods" >
+    <constructor >
+      <idArg column="GOOD_ID" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="GOOD_NAME" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="GOOD_RYPE" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="GOOD_SIZE" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="GOOD_VALUE" jdbcType="DOUBLE" javaType="java.lang.Double" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    GOOD_ID, GOOD_NAME, GOOD_RYPE, GOOD_SIZE, GOOD_VALUE
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from wms_goods
+    where GOOD_ID = #{goodId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from wms_goods
+    where GOOD_ID = #{goodId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.wensir.project.pojo.wmsdb.WmsGoods" >
+    insert into wms_goods (GOOD_ID, GOOD_NAME, GOOD_RYPE, 
+      GOOD_SIZE, GOOD_VALUE)
+    values (#{goodId,jdbcType=INTEGER}, #{goodName,jdbcType=VARCHAR}, #{goodRype,jdbcType=VARCHAR}, 
+      #{goodSize,jdbcType=VARCHAR}, #{goodValue,jdbcType=DOUBLE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.wensir.project.pojo.wmsdb.WmsGoods" >
+    insert into wms_goods
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="goodId != null" >
+        GOOD_ID,
+      </if>
+      <if test="goodName != null" >
+        GOOD_NAME,
+      </if>
+      <if test="goodRype != null" >
+        GOOD_RYPE,
+      </if>
+      <if test="goodSize != null" >
+        GOOD_SIZE,
+      </if>
+      <if test="goodValue != null" >
+        GOOD_VALUE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="goodId != null" >
+        #{goodId,jdbcType=INTEGER},
+      </if>
+      <if test="goodName != null" >
+        #{goodName,jdbcType=VARCHAR},
+      </if>
+      <if test="goodRype != null" >
+        #{goodRype,jdbcType=VARCHAR},
+      </if>
+      <if test="goodSize != null" >
+        #{goodSize,jdbcType=VARCHAR},
+      </if>
+      <if test="goodValue != null" >
+        #{goodValue,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wensir.project.pojo.wmsdb.WmsGoods" >
+    update wms_goods
+    <set >
+      <if test="goodName != null" >
+        GOOD_NAME = #{goodName,jdbcType=VARCHAR},
+      </if>
+      <if test="goodRype != null" >
+        GOOD_RYPE = #{goodRype,jdbcType=VARCHAR},
+      </if>
+      <if test="goodSize != null" >
+        GOOD_SIZE = #{goodSize,jdbcType=VARCHAR},
+      </if>
+      <if test="goodValue != null" >
+        GOOD_VALUE = #{goodValue,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where GOOD_ID = #{goodId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wensir.project.pojo.wmsdb.WmsGoods" >
+    update wms_goods
+    set GOOD_NAME = #{goodName,jdbcType=VARCHAR},
+      GOOD_RYPE = #{goodRype,jdbcType=VARCHAR},
+      GOOD_SIZE = #{goodSize,jdbcType=VARCHAR},
+      GOOD_VALUE = #{goodValue,jdbcType=DOUBLE}
+    where GOOD_ID = #{goodId,jdbcType=INTEGER}
+  </update>
+</mapper>

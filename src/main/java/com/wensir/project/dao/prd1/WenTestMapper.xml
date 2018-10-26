@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wensir.project.dao.prd1.WenTestMapper" >
+  <resultMap id="BaseResultMap" type="com.wensir.project.pojo.prd1.WenTest" >
+    <constructor >
+      <arg column="ID" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
+      <arg column="NAME" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <insert id="insert" parameterType="com.wensir.project.pojo.prd1.WenTest" >
+    insert into WEN_TEST (ID, NAME)
+    values (#{id,jdbcType=DECIMAL}, #{name,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.wensir.project.pojo.prd1.WenTest" >
+    insert into WEN_TEST
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="name != null" >
+        NAME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id,name
+    from WEN_TEST
+  </select>
+</mapper>
