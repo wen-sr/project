@@ -12,7 +12,7 @@ public class WmsGoodsService {
     @Autowired
     WmsGoodsMapper wmsGoodsMapper;
 
-    @DS("datasource2")
+    @DS("mysql")
     public void find(){
         WmsGoods wmsGoods = wmsGoodsMapper.selectByPrimaryKey(103);
         System.out.println(wmsGoods.getGoodName());

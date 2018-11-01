@@ -11,6 +11,6 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.METHOD})
 public @interface DS {
-    String value() default "datasource1";
+    String value() default "prd1";
 }
 

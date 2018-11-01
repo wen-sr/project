@@ -7,13 +7,24 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 @Slf4j
-public class HtmlController {
+@RequestMapping("/page/led")
+public class LedHtmlController {
 
 
     @RequestMapping(value = "/test", method = RequestMethod.GET)
     public String test() {
-        log.info("=====");
         return "/test";
     }
+
+    @RequestMapping(value = {"/zhupei", "/zhupei.html"}, method = RequestMethod.GET)
+    public String zhupei() {
+        return "/led/zhupei";
+    }
+
+    @RequestMapping(value = {"/baozhuang", "/baozhuang.html"}, method = RequestMethod.GET)
+    public String baozhuang() {
+        return "/led/baozhuang";
+    }
+
 
 }

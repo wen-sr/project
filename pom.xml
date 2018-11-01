@@ -22,6 +22,8 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
 		<weixin-java-mp.version>3.2.0</weixin-java-mp.version>
+		<fastjson.version>1.2.6</fastjson.version>
+		<jackson.version>2.9.4</jackson.version>
 	</properties>
 
 	<dependencies>
@@ -56,6 +58,11 @@
 			<version>11.2.0.1.0</version>
 		</dependency>
 
+		<dependency>
+			<groupId>com.microsoft.sqlserver</groupId>
+			<artifactId>mssql-jdbc</artifactId>
+			<scope>runtime</scope>
+		</dependency>
 
 
 		<dependency>
@@ -141,11 +148,16 @@
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
 
-		<dependency>
-			<groupId>com.alibaba</groupId>
-			<artifactId>druid</artifactId>
-			<version>1.1.0</version>
-		</dependency>
+		<!--<dependency>-->
+			<!--<groupId>com.alibaba</groupId>-->
+			<!--<artifactId>druid</artifactId>-->
+			<!--<version>1.1.0</version>-->
+		<!--</dependency>-->
+		<!--<dependency>-->
+			<!--<groupId>com.alibaba</groupId>-->
+			<!--<artifactId>druid-spring-boot-starter</artifactId>-->
+			<!--<version>1.1.9</version>-->
+		<!--</dependency>-->
 
 		<!--mybatis-->
 		<dependency>
@@ -166,11 +178,7 @@
 			<version>1.2.3</version>
 		</dependency>
 
-		<dependency>
-			<groupId>com.alibaba</groupId>
-			<artifactId>druid-spring-boot-starter</artifactId>
-			<version>1.1.9</version>
-		</dependency>
+
 
 		<dependency>
 			<groupId>org.mybatis.generator</groupId>
@@ -185,6 +193,27 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-redis</artifactId>
 		</dependency>
+
+
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+			<version>${jackson.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>${jackson.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-annotations</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.module</groupId>
+			<artifactId>jackson-module-jaxb-annotations</artifactId>
+		</dependency>
+
 	</dependencies>
 
 	<build>

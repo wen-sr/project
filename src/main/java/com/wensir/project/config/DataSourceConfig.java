@@ -19,16 +19,23 @@ import java.util.Map;
 @Configuration
 public class DataSourceConfig {
     //数据源1
-    @Bean(name = "datasource1")
+    @Bean(name = "prd1")
     @ConfigurationProperties(prefix = "spring.datasource.wh1") // application.properteis中对应属性的前缀
-    public DataSource dataSource1() {
+    public DataSource prd1() {
+        return DataSourceBuilder.create().build();
+    }
+
+    //数据源1
+    @Bean(name = "wes")
+    @ConfigurationProperties(prefix = "spring.datasource.wes") // application.properteis中对应属性的前缀
+    public DataSource wes() {
         return DataSourceBuilder.create().build();
     }
 
     //数据源2
-    @Bean(name = "datasource2")
+    @Bean(name = "mysql")
     @ConfigurationProperties(prefix = "spring.datasource.db5") // application.properteis中对应属性的前缀
-    public DataSource dataSource2() {
+    public DataSource mysql() {
         return DataSourceBuilder.create().build();
     }
 
@@ -41,11 +48,12 @@ public class DataSourceConfig {
     public DataSource dynamicDataSource() {
         DynamicDataSource dynamicDataSource = new DynamicDataSource();
         // 默认数据源
-        dynamicDataSource.setDefaultTargetDataSource(dataSource1());
+        dynamicDataSource.setDefaultTargetDataSource(prd1());
         // 配置多数据源
         Map<Object, Object> dsMap = new HashMap();
-        dsMap.put("datasource1", dataSource1());
-        dsMap.put("datasource2", dataSource2());
+        dsMap.put("prd1", prd1());
+        dsMap.put("mysql", mysql());
+        dsMap.put("wes", wes());
 
         dynamicDataSource.setTargetDataSources(dsMap);
         return dynamicDataSource;

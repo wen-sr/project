@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wensir.project.dao.wes.ZhuPeiLedMapper" >
+  <resultMap id="BaseResultMap" type="com.wensir.project.pojo.wes.ZhuPeiLed" >
+    <constructor >
+      <arg column="STORER" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="TYPE" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="AILID" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="sorqty" jdbcType="NUMERIC" javaType="java.math.BigDecimal" />
+      <arg column="skucount" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="dd" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <insert id="insert" parameterType="com.wensir.project.pojo.wes.ZhuPeiLed" >
+    insert into zhupeiLed (STORER, TYPE, AILID, 
+      sorqty, skucount, dd
+      )
+    values (#{storer,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, #{ailid,jdbcType=VARCHAR}, 
+      #{sorqty,jdbcType=NUMERIC}, #{skucount,jdbcType=INTEGER}, #{dd,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.wensir.project.pojo.wes.ZhuPeiLed" >
+    insert into zhupeiLed
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="storer != null" >
+        STORER,
+      </if>
+      <if test="type != null" >
+        TYPE,
+      </if>
+      <if test="ailid != null" >
+        AILID,
+      </if>
+      <if test="sorqty != null" >
+        sorqty,
+      </if>
+      <if test="skucount != null" >
+        skucount,
+      </if>
+      <if test="dd != null" >
+        dd,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="storer != null" >
+        #{storer,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="ailid != null" >
+        #{ailid,jdbcType=VARCHAR},
+      </if>
+      <if test="sorqty != null" >
+        #{sorqty,jdbcType=NUMERIC},
+      </if>
+      <if test="skucount != null" >
+        #{skucount,jdbcType=INTEGER},
+      </if>
+      <if test="dd != null" >
+        #{dd,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="getZhuPeiLedData" resultMap="BaseResultMap">
+    select storer,TYPE,ailid,sorqty,skucount,dd from zhupeiLed where dd = convert(varchar(8),getdate(),112) order by 4 DESC
+  </select>
+</mapper>
