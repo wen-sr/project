@@ -13,6 +13,8 @@ function switchWindow() {
     var oneStatus= $("#one").is(":visible");
     var twoStatus= $("#two").is(":visible");
     var threeStatus= $("#three").is(":visible");
+    var fourStatus= $("#four").is(":visible");
+    var fiveStatus= $("#five").is(":visible");
     if(oneStatus == true){
         two();
         return;
@@ -22,6 +24,14 @@ function switchWindow() {
         return;
     }
     if(threeStatus == true){
+        four();
+        return;
+    }
+    if(fourStatus == true){
+        five();
+        return;
+    }
+    if(fiveStatus == true){
         one();
         return;
     }
@@ -31,12 +41,14 @@ function switchWindow() {
 function one(){
     var html = $("#one").html();
     if(html == ''){
-        two();
+        // two();
         return;
     }
     $("#one").show();
     $("#two").hide();
     $("#three").hide();
+    $("#four").hide();
+    $("#five").hide();
 }
 
 function two() {
@@ -48,23 +60,53 @@ function two() {
     $("#two").show();
     $("#one").hide();
     $("#three").hide();
+    $("#four").hide();
+    $("#five").hide();
 }
 
 function three() {
     var html = $("#three").html();
     if(html == ''){
-        one();
+        four();
         return;
     }
     $("#three").show();
+    $("#four").hide();
     $("#two").hide();
     $("#one").hide();
+    $("#five").hide();
+}
+
+function four() {
+    var html = $("#four").html();
+    if(html == ''){
+        five();
+        return;
+    }
+    $("#four").show();
+    $("#two").hide();
+    $("#one").hide();
+    $("#three").hide();
+    $("#five").hide();
+}
+
+function five() {
+    var html = $("#five").html();
+    if(html == ''){
+        one();
+        return;
+    }
+    $("#five").show();
+    $("#four").hide();
+    $("#two").hide();
+    $("#one").hide();
+    $("#three").hide();
 }
 
 function getData(){
     $.ajax({
         type:"POST",
-        url:"/project/led/zhupei",
+        url:"/project/led/tuopan4",
         success:function (res) {
             if(res.data == null) {
                 return;
@@ -72,51 +114,46 @@ function getData(){
             $("#one").html("");
             $("#two").html("");
             $("#three").html("");
-            var t1 = "<table cellpadding='0' cellspacing='0' style='font-size: 18px;width: 100%;font-weight:normal;border-spacing:0px 1.5px;'>" +
-                "<tr><td>货主类型</td><td>作业线</td><td>上线册数</td><td>上线品种</td><td>效率值</td><td>排名</td></tr>";
-            for(var i = 0; i < (res.data.length > 8 ? 8 : res.data.length); i++ ){
-                var data = res.data[i];
-                t1 += "<tr><td>" + data.storer + data.type + "</td><td>" + data.ailid + "</td><td>" + data.sorqty + "</td><td>" + data.skucount + "</td><td>" + 00 + "</td><td>" + (i+1) + "</td></tr>"
-            }
+            $("#four").html("");
+            var t1 = "<table id='t1' cellpadding='0' cellspacing='0' style='font-size: 18px;width: 100%;font-weight:normal;border-spacing:0px 1.5px;'><thead><tr><td>作业类型</td><td>应完成</td><td>已完成</td><td>未完成</td><td>完成率</td></tr></thead>" +
+                "<tbody>";
+            var totalToday_ZanCunRK = res.data.totalToday_ZanCunRK == null ? 0 : res.data.totalToday_ZanCunRK;
+            var complete_ZanCunRK = res.data.complete_ZanCunRK == null ? 0 : res.data.complete_ZanCunRK;
+            var totalToday_ShangJiaRK_t = res.data.totalToday_ShangJiaRK.countQty == null ? 0 : res.data.totalToday_ShangJiaRK.countQty;
+            var totalToday_ShangJiaRK_c = res.data.totalToday_ShangJiaRK.sumQty == null ? 0 : res.data.totalToday_ShangJiaRK.sumQty;
+            var complete_ShangJiaRK_t = res.data.complete_ShangJiaRK.countQty == null ? 0 : res.data.complete_ShangJiaRK.countQty;
+            var complete_ShangJiaRK_c = res.data.complete_ShangJiaRK.sumQty == null ? 0 : res.data.complete_ShangJiaRK.sumQty;
+            var totalToday_case_t = res.data.totalToday_case.countQty == null ? 0 : res.data.totalToday_case.countQty;
+            var totalToday_case_c = res.data.totalToday_case.sumQty == null ? 0 : res.data.totalToday_case.sumQty;
+            var complete_case_t = res.data.complete_case.countQty == null ? 0 : res.data.complete_case.countQty ;
+            var complete_case_c = res.data.complete_case.sumQty == null ? 0 : res.data.complete_case.sumQty;
+            var totalToday_PK_t = res.data.totalToday_PK.countQty == null ? 0 : res.data.totalToday_PK.countQty;
+            var totalToday_PK_c = res.data.totalToday_PK.sumQty == null ? 0 : res.data.totalToday_PK.sumQty;
+            var complete_PK_t = res.data.complete_PK.countQty == null ? 0 : res.data.complete_PK.countQty;
+            var complete_PK_c = res.data.complete_PK.sumQty == null ? 0 : res.data.complete_PK.sumQty;
+            var totalToday_ZanCunCK = res.data.totalToday_ZanCunCK == null ? 0 : res.data.totalToday_ZanCunCK;
+            var complete_ZanCunCK = res.data.complete_ZanCunCK == null ? 0 : res.data.complete_ZanCunCK;
+            var totaltoday_BuHuo_t = res.data.buHuo.countQty == null ? 0 : res.data.buHuo.countQty;
+            var totalToday_BuHuo_c = res.data.buHuo.sumQty == null ? 0 : res.data.buHuo.sumQty;
+            var complete_BuHuo_t = res.data.buHuo.completeCount == null ? 0 : res.data.buHuo.completeCount;
+            var complete_BuHuo_c = res.data.buHuo.completeCount == null ? 0 : res.data.buHuo.completeCount;
 
-            t1  +=  "</table>";
-            var t2 = "";
-            if(res.data.length > 8){
-                var t2 = "<table cellpadding='0' cellspacing='0' style='font-size: 18px;width: 100%;font-weight:normal;border-spacing:0px 1.5px;'>" +
-                    "<tr><td>货主类型</td><td>作业线</td><td>上线册数</td><td>上线品种</td><td>效率值</td><td>排名</td></tr>";
-                for(var i = 8; i < (res.data.length > 16 ? 16 : res.data.length); i++ ){
-                    var data = res.data[i];
-                    t2 += "<tr><td>" + data.storer + data.type + "</td><td>" + data.ailid + "</td><td>" + data.sorqty + "</td><td>" + data.skucount + "</td><td>" + 00 + "</td><td>" + (i+1) + "</td></tr>"
-                }
-            }
-            var t3 = "";
-            if(res.data.length > 16){
-                var t2 = "<table cellpadding='0' cellspacing='0' style='font-size: 18px;width: 100%;font-weight:normal;border-spacing:0px 1.5px;'>" +
-                    "<tr><td>货主类型</td><td>作业线</td><td>上线册数</td><td>上线品种</td><td>效率值</td><td>排名</td></tr>";
-                for(var i = 16; i < (res.data.length > 24 ? 24 : res.data.length); i++ ){
-                    var data = res.data[i];
-                    t3 += "<tr><td>" + data.storer + data.type + "</td><td>" + data.ailid + "</td><td>" + data.sorqty + "</td><td>" + data.skucount + "</td><td>" + 00 + "</td><td>" + (i+1) + "</td></tr>"
-                }
-            }
+            var r_1 = isNaN(Math.round(parseFloat(complete_ZanCunRK)/parseFloat(totalToday_ZanCunRK)*100))?100:Math.round(parseFloat(complete_ZanCunRK)/parseFloat(totalToday_ZanCunRK)*100);
+            var r_2 = isNaN(Math.round(parseFloat(complete_ShangJiaRK_c)/parseFloat(totalToday_ShangJiaRK_c)*100))?100:Math.round(parseFloat(complete_ShangJiaRK_c)/parseFloat(totalToday_ShangJiaRK_c)*100);
+            var r_3 = isNaN(Math.round(parseFloat(complete_case_c)/parseFloat(totalToday_case_c)*100))?100:Math.round(parseFloat(complete_case_c)/parseFloat(totalToday_case_c)*100);
+            var r_4 = isNaN(Math.round(parseFloat(complete_PK_c)/parseFloat(totalToday_PK_c)*100))?100:Math.round(parseFloat(complete_PK_c)/parseFloat(totalToday_PK_c)*100);
+            var r_5 = isNaN(Math.round(parseFloat(complete_ZanCunCK)/parseFloat(totalToday_ZanCunCK)*100))?100:Math.round(parseFloat(complete_ZanCunCK)/parseFloat(totalToday_ZanCunCK)*100);
+            var r_6 = isNaN(Math.round(parseFloat(complete_BuHuo_c)/parseFloat(totalToday_BuHuo_c)*100))?100:Math.round(parseFloat(complete_BuHuo_c)/parseFloat(totalToday_BuHuo_c)*100);
 
-            var sumqty = 0;
-            var sumsku = 0;
-            for(var j = 0; j < res.data.length ; j++){
-                sumqty += res.data[j].sorqty;
-                sumsku += res.data[j].skucount;
-            }
+            t1 += "<tr><td>暂存入库</td><td>"+ totalToday_ZanCunRK +"托</td><td>"+ complete_ZanCunRK +"托</td><td>"+ (parseInt(totalToday_ZanCunRK)-parseInt(complete_ZanCunRK)) +"托</td><td>"+ r_1 +"%</td></tr>"
+            t1 += "<tr><td>上架入库</td><td>"+ totalToday_ShangJiaRK_t +"托/" + totalToday_ShangJiaRK_c  +"册</td><td>"+ complete_ShangJiaRK_t +"托/" + complete_ShangJiaRK_c +"册</td><td>"+ (parseInt(totalToday_ShangJiaRK_c)-parseInt(complete_ShangJiaRK_c)) +"册</td><td>"+ r_2  +"%</td></tr>"
+            t1 += "<tr><td>暂不发入库</td><td>"+ totalToday_case_t +"托/" + totalToday_case_c  +"件</td><td>"+ complete_case_t +"托/" + complete_case_c +"件</td><td>"+ (parseInt(totalToday_case_c)-parseInt(complete_case_c)) +"册</td><td>"+ r_3  +"%</td></tr>"
+            t1 += "<tr><td>拣货</td><td>"+ totalToday_PK_t +"托/" + totalToday_PK_c  +"册</td><td>"+ complete_PK_t +"托/" + complete_PK_c +"册</td><td>"+ (parseInt(totalToday_PK_c)-parseInt(complete_PK_c)) +"册</td><td>"+ r_4 +"%</td></tr>"
+            t1 += "<tr><td>暂存出库</td><td>"+ totalToday_ZanCunCK +"托</td><td>"+ complete_ZanCunCK +"托</td><td>"+ (parseInt(totalToday_ZanCunCK)-parseInt(complete_ZanCunCK)) +"托</td><td>"+ r_5  +"%</td></tr>"
+            t1 += "<tr><td>补货</td><td>"+ totaltoday_BuHuo_t +"托/" + totalToday_BuHuo_c  +"册</td><td>"+ complete_BuHuo_t +"托/" + complete_BuHuo_c +"册</td><td>"+ (parseInt(totalToday_BuHuo_c)-parseInt(complete_BuHuo_c)) +"册</td><td>"+ r_6  +"%</td></tr>"
 
-            if(res.data.length < 8){
-                t1 += "<tr><td colspan='2'>合计</td><td>" + sumqty + "</td><td> " + sumsku +"</td><td colspan='2'>&nbsp;</td></tr>";
-            }else if (8 <= res.data.length < 16){
-                t2 += "<tr><td colspan='2'>合计</td><td>" + sumqty + "</td><td> " + sumsku +"</td><td colspan='2'>&nbsp;</td></tr>";
-            }else if(16 <= res.data.length < 24){
-                t3 += "<tr><td colspan='2'>合计</td><td>" + sumqty + "</td><td> " + sumsku +"</td><td colspan='2'>&nbsp;</td></tr>";
-            }
-
+            t1 += "</tbody></table>";
             $("#one").html(t1);
-            $("#two").html(t2);
-            $("#three").html(t3);
         },
         error:function(){
             alert("数据错误，联系管理员");

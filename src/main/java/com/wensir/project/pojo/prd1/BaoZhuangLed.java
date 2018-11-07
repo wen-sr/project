@@ -15,19 +15,14 @@ public class BaoZhuangLed {
 
     private BigDecimal skucount;
 
-    private String storerkey;
 
-    private String storer;
-
-    public BaoZhuangLed(String dd, String packUser, String usrFname, BigDecimal caseqty, BigDecimal qty, BigDecimal skucount, String storerkey, String storer) {
+    public BaoZhuangLed(String dd, String packUser, String usrFname, BigDecimal caseqty, BigDecimal qty, BigDecimal skucount) {
         this.dd = dd;
         this.packUser = packUser;
         this.usrFname = usrFname;
         this.caseqty = caseqty;
         this.qty = qty;
         this.skucount = skucount;
-        this.storerkey = storerkey;
-        this.storer = storer;
     }
 
     public BaoZhuangLed() {
@@ -82,19 +77,4 @@ public class BaoZhuangLed {
         this.skucount = skucount;
     }
 
-    public String getStorerkey() {
-        return storerkey;
-    }
-
-    public void setStorerkey(String storerkey) {
-        this.storerkey = storerkey == null ? null : storerkey.trim();
-    }
-
-    public String getStorer() {
-        return storer;
-    }
-
-    public void setStorer(String storer) {
-        this.storer = storer == null ? null : storer.trim();
-    }
 }

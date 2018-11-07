@@ -2,6 +2,8 @@ package com.wensir.project.controller;
 
 import com.wensir.project.common.ServerResponse;
 import com.wensir.project.service.prd1.BaoZhuangLedService;
+import com.wensir.project.service.prd1.ShangJiaRKLedService;
+import com.wensir.project.service.prd1.ZanCunRKLedService;
 import com.wensir.project.service.wes.ZhuPeiLedService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,6 +21,9 @@ public class LedController {
     @Autowired
     BaoZhuangLedService baoZhuangLedService;
 
+    @Autowired
+    ZanCunRKLedService zanCunRKLedService;
+
     @RequestMapping(value = {"/zhupei" }, method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse zhupei(){
@@ -30,6 +35,13 @@ public class LedController {
     @ResponseBody
     public ServerResponse baozhuang(){
         ServerResponse response = baoZhuangLedService.getBaoZhuangLedData();
+        return response;
+    }
+
+    @RequestMapping(value = {"/tuopan4" }, method = RequestMethod.POST)
+    @ResponseBody
+    public ServerResponse tuopan4(){
+        ServerResponse response = zanCunRKLedService.getTuoPan4LedData();
         return response;
     }
 }

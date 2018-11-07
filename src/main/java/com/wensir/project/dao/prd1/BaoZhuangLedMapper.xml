@@ -9,17 +9,13 @@
       <arg column="CASEQTY" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
       <arg column="QTY" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
       <arg column="SKUCOUNT" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
-      <arg column="STORERKEY" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="STORER" jdbcType="VARCHAR" javaType="java.lang.String" />
     </constructor>
   </resultMap>
   <insert id="insert" parameterType="com.wensir.project.pojo.prd1.BaoZhuangLed" >
     insert into BAOZHUANGLED (DD, PACK_USER, USR_FNAME, 
-      CASEQTY, QTY, SKUCOUNT, 
-      STORERKEY, STORER)
+      CASEQTY, QTY, SKUCOUNT)
     values (#{dd,jdbcType=VARCHAR}, #{packUser,jdbcType=VARCHAR}, #{usrFname,jdbcType=VARCHAR}, 
-      #{caseqty,jdbcType=DECIMAL}, #{qty,jdbcType=DECIMAL}, #{skucount,jdbcType=DECIMAL}, 
-      #{storerkey,jdbcType=VARCHAR}, #{storer,jdbcType=VARCHAR})
+      #{caseqty,jdbcType=DECIMAL}, #{qty,jdbcType=DECIMAL}, #{skucount,jdbcType=DECIMAL}
   </insert>
   <insert id="insertSelective" parameterType="com.wensir.project.pojo.prd1.BaoZhuangLed" >
     insert into BAOZHUANGLED
@@ -42,12 +38,6 @@
       <if test="skucount != null" >
         SKUCOUNT,
       </if>
-      <if test="storerkey != null" >
-        STORERKEY,
-      </if>
-      <if test="storer != null" >
-        STORER,
-      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="dd != null" >
@@ -68,18 +58,12 @@
       <if test="skucount != null" >
         #{skucount,jdbcType=DECIMAL},
       </if>
-      <if test="storerkey != null" >
-        #{storerkey,jdbcType=VARCHAR},
-      </if>
-      <if test="storer != null" >
-        #{storer,jdbcType=VARCHAR},
-      </if>
     </trim>
   </insert>
   <select id="getBaoZhuangLedData" resultMap="BaseResultMap">
-    select dd,pack_user,usr_fname,caseqty,qty,skucount,storerkey,storer
+    select dd,pack_user,usr_fname,caseqty,qty,skucount
     from baozhuangLed
     where dd = to_char(sysdate, 'yyyymmdd')
-    order by 5 desc
+    order by 5 DESC
   </select>
 </mapper>

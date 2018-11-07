@@ -63,6 +63,6 @@
     </trim>
   </insert>
   <select id="getZhuPeiLedData" resultMap="BaseResultMap">
-    select storer,TYPE,ailid,sorqty,skucount,dd from zhupeiLed where dd = convert(varchar(8),getdate(),112) order by 4 DESC
+    select storer,TYPE,ailid,sorqty,skucount,dd from zhupeiLed where dd = convert(varchar(8),getdate(),112) order by 4 DESC ,1 ASC
   </select>
 </mapper>

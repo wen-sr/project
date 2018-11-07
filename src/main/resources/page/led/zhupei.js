@@ -79,9 +79,8 @@ function getData(){
                 t1 += "<tr><td>" + data.storer + data.type + "</td><td>" + data.ailid + "</td><td>" + data.sorqty + "</td><td>" + data.skucount + "</td><td>" + 00 + "</td><td>" + (i+1) + "</td></tr>"
             }
 
-            t1  +=  "</table>";
             var t2 = "";
-            if(res.data.length > 8){
+            if(res.data.length >= 8){
                 t2 = "<table cellpadding='0' cellspacing='0' style='font-size: 18px;width: 100%;font-weight:normal;border-spacing:0px 1.5px;'>" +
                     "<tr><td>货主类型</td><td>作业线</td><td>上线册数</td><td>上线品种</td><td>效率值</td><td>排名</td></tr>";
                 for(var i = 8; i < (res.data.length > 16 ? 16 : res.data.length); i++ ){
@@ -90,7 +89,7 @@ function getData(){
                 }
             }
             var t3 = "";
-            if(res.data.length > 16){
+            if(res.data.length >= 16){
                 t3 = "<table cellpadding='0' cellspacing='0' style='font-size: 18px;width: 100%;font-weight:normal;border-spacing:0px 1.5px;'>" +
                     "<tr><td>货主类型</td><td>作业线</td><td>上线册数</td><td>上线品种</td><td>效率值</td><td>排名</td></tr>";
                 for(var i = 16; i < (res.data.length > 24 ? 24 : res.data.length); i++ ){
@@ -107,11 +106,11 @@ function getData(){
             }
             var length = parseInt(res.data.length);
             if(length < 8){
-                t1 += "<tr><td colspan='2'>合计</td><td>" + sumqty + "</td><td> " + sumsku +"</td><td colspan='2'>&nbsp;</td></tr>";
+                t1 += "<tr><td>合计</td><td>&nbsp;</td><td>" + sumqty + "</td><td> " + sumsku +"</td><td>&nbsp;</td><td>&nbsp;</td></tr></table>";
             }else if (8 <= length && length < 16){
-                t2 += "<tr><td colspan='2'>合计</td><td>" + sumqty + "</td><td> " + sumsku +"</td><td colspan='2'>&nbsp;</td></tr>";
+                t2 += "<tr><td>合计</td><td>&nbsp;</td><td>" + sumqty + "</td><td> " + sumsku +"</td><td>&nbsp;</td><td>&nbsp;</td></tr></table>";
             }else if(16 <= length && length < 24){
-                t3 += "<tr><td colspan='2'>合计</td><td>" + sumqty + "</td><td> " + sumsku +"</td><td colspan='2'>&nbsp;</td></tr>";
+                t3 += "<tr><td>合计</td><td>&nbsp;</td><td>" + sumqty + "</td><td> " + sumsku +"</td><td>&nbsp;</td><td>&nbsp;</td></tr></table>";
             }
 
             $("#one").html(t1);
