@@ -117,26 +117,45 @@ function getData(){
             $("#four").html("");
             var t1 = "<table id='t1' cellpadding='0' cellspacing='0' style='font-size: 18px;width: 100%;font-weight:normal;border-spacing:0px 1.5px;'><thead><tr><td>作业类型</td><td>应完成</td><td>已完成</td><td>未完成</td><td>完成率</td></tr></thead>" +
                 "<tbody>";
-            var totalToday_ZanCunRK = res.data.totalToday_ZanCunRK == null ? 0 : res.data.totalToday_ZanCunRK;
+            var incomplete_ZanCunRK = res.data.incomplete_ZanCunRK == null ? 0 : res.data.incomplete_ZanCunRK;
             var complete_ZanCunRK = res.data.complete_ZanCunRK == null ? 0 : res.data.complete_ZanCunRK;
-            var totalToday_ShangJiaRK_t = res.data.totalToday_ShangJiaRK.countQty == null ? 0 : res.data.totalToday_ShangJiaRK.countQty;
-            var totalToday_ShangJiaRK_c = res.data.totalToday_ShangJiaRK.sumQty == null ? 0 : res.data.totalToday_ShangJiaRK.sumQty;
+            var totalToday_ZanCunRK = incomplete_ZanCunRK + complete_ZanCunRK;
+
+
+
             var complete_ShangJiaRK_t = res.data.complete_ShangJiaRK.countQty == null ? 0 : res.data.complete_ShangJiaRK.countQty;
             var complete_ShangJiaRK_c = res.data.complete_ShangJiaRK.sumQty == null ? 0 : res.data.complete_ShangJiaRK.sumQty;
+            var incomplete_ShangJiaRK_t = res.data.incomplete_ShangJiaRK.countQty == null ? 0 : res.data.incomplete_ShangJiaRK.countQty;
+            var incomplete_ShangJiaRK_c = res.data.incomplete_ShangJiaRK.sumQty == null ? 0 : res.data.incomplete_ShangJiaRK.sumQty;
+            var totalToday_ShangJiaRK_t = complete_ShangJiaRK_t + incomplete_ShangJiaRK_t;
+            var totalToday_ShangJiaRK_c = complete_ShangJiaRK_c + incomplete_ShangJiaRK_c;
+
+
             var totalToday_case_t = res.data.totalToday_case.countQty == null ? 0 : res.data.totalToday_case.countQty;
             var totalToday_case_c = res.data.totalToday_case.sumQty == null ? 0 : res.data.totalToday_case.sumQty;
             var complete_case_t = res.data.complete_case.countQty == null ? 0 : res.data.complete_case.countQty ;
             var complete_case_c = res.data.complete_case.sumQty == null ? 0 : res.data.complete_case.sumQty;
-            var totalToday_PK_t = res.data.totalToday_PK.countQty == null ? 0 : res.data.totalToday_PK.countQty;
-            var totalToday_PK_c = res.data.totalToday_PK.sumQty == null ? 0 : res.data.totalToday_PK.sumQty;
+
+
+
             var complete_PK_t = res.data.complete_PK.countQty == null ? 0 : res.data.complete_PK.countQty;
             var complete_PK_c = res.data.complete_PK.sumQty == null ? 0 : res.data.complete_PK.sumQty;
-            var totalToday_ZanCunCK = res.data.totalToday_ZanCunCK == null ? 0 : res.data.totalToday_ZanCunCK;
+            var incomplete_PK_t = res.data.incomplete_PK.countQty == null ? 0 : res.data.incomplete_PK.countQty;
+            var incomplete_PK_c = res.data.incomplete_PK.sumQty == null ? 0 : res.data.incomplete_PK.sumQty;
+            var totalToday_PK_t = complete_PK_t + incomplete_PK_t;
+            var totalToday_PK_c = complete_PK_c + incomplete_PK_c;
+
             var complete_ZanCunCK = res.data.complete_ZanCunCK == null ? 0 : res.data.complete_ZanCunCK;
-            var totaltoday_BuHuo_t = res.data.buHuo.countQty == null ? 0 : res.data.buHuo.countQty;
-            var totalToday_BuHuo_c = res.data.buHuo.sumQty == null ? 0 : res.data.buHuo.sumQty;
-            var complete_BuHuo_t = res.data.buHuo.completeCount == null ? 0 : res.data.buHuo.completeCount;
-            var complete_BuHuo_c = res.data.buHuo.completeCount == null ? 0 : res.data.buHuo.completeCount;
+            var incomplete_ZanCunCK = res.data.incomplete_ZanCunCK == null ? 0 : res.data.incomplete_ZanCunCK;
+            var totalToday_ZanCunCK = complete_ZanCunCK + incomplete_ZanCunCK;
+
+            var complete_BuHuo_t = res.data.complete_BuHuo.countQty == null ? 0 : res.data.complete_BuHuo.countQty;
+            var complete_BuHuo_c = res.data.complete_BuHuo.sumQty == null ? 0 : res.data.complete_BuHuo.sumQty;
+            var incomplete_BuHuo_t = res.data.incomplete_BuHuo.countQty == null ? 0 : res.data.incomplete_BuHuo.countQty;
+            var incomplete_BuHuo_c = res.data.incomplete_BuHuo.sumQty == null ? 0 : res.data.incomplete_BuHuo.sumQty;
+            var totaltoday_BuHuo_t = complete_BuHuo_t + incomplete_BuHuo_t;
+            var totalToday_BuHuo_c = complete_BuHuo_c + incomplete_BuHuo_c;
+
 
             var r_1 = isNaN(Math.round(parseFloat(complete_ZanCunRK)/parseFloat(totalToday_ZanCunRK)*100))?100:Math.round(parseFloat(complete_ZanCunRK)/parseFloat(totalToday_ZanCunRK)*100);
             var r_2 = isNaN(Math.round(parseFloat(complete_ShangJiaRK_c)/parseFloat(totalToday_ShangJiaRK_c)*100))?100:Math.round(parseFloat(complete_ShangJiaRK_c)/parseFloat(totalToday_ShangJiaRK_c)*100);
@@ -150,7 +169,7 @@ function getData(){
             t1 += "<tr><td>暂不发入库</td><td>"+ totalToday_case_t +"托/" + totalToday_case_c  +"件</td><td>"+ complete_case_t +"托/" + complete_case_c +"件</td><td>"+ (parseInt(totalToday_case_c)-parseInt(complete_case_c)) +"册</td><td>"+ r_3  +"%</td></tr>"
             t1 += "<tr><td>拣货</td><td>"+ totalToday_PK_t +"托/" + totalToday_PK_c  +"册</td><td>"+ complete_PK_t +"托/" + complete_PK_c +"册</td><td>"+ (parseInt(totalToday_PK_c)-parseInt(complete_PK_c)) +"册</td><td>"+ r_4 +"%</td></tr>"
             t1 += "<tr><td>暂存出库</td><td>"+ totalToday_ZanCunCK +"托</td><td>"+ complete_ZanCunCK +"托</td><td>"+ (parseInt(totalToday_ZanCunCK)-parseInt(complete_ZanCunCK)) +"托</td><td>"+ r_5  +"%</td></tr>"
-            t1 += "<tr><td>补货</td><td>"+ totaltoday_BuHuo_t +"托/" + totalToday_BuHuo_c  +"册</td><td>"+ complete_BuHuo_t +"托/" + complete_BuHuo_c +"册</td><td>"+ (parseInt(totalToday_BuHuo_c)-parseInt(complete_BuHuo_c)) +"册</td><td>"+ r_6  +"%</td></tr>"
+            t1 += "<tr><td>补货</td><td>"+ totaltoday_BuHuo_t +"托/" + totalToday_BuHuo_c  +"册</td><td>"+ complete_BuHuo_t +"托/" + complete_BuHuo_c +"册</td><td>"+ incomplete_BuHuo_t +"托/" + incomplete_BuHuo_c +"册</td><td>"+ r_6  +"%</td></tr>"
 
             t1 += "</tbody></table>";
             $("#one").html(t1);

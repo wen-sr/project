@@ -26,16 +26,18 @@ public class ZanCunRKLedServiceImpl implements ZanCunRKLedService {
 
     @Override
     public ServerResponse getTuoPan4LedData() {
-        Integer totalToday_ZanCunRK = zanCunRkLedMapper.getTotalToday();
         Integer complete_ZanCunRK = zanCunRkLedMapper.getComplete();
-        SumAndCount totalToday_ShangJiaRK = shangJiaRKLedMapper.getTotalToday();
-        if(totalToday_ShangJiaRK == null){
-            totalToday_ShangJiaRK = new SumAndCount();
+        Integer incomplete_ZanCunRK = zanCunRkLedMapper.getIncomplete();
+
+        SumAndCount incomplete_ShangJiaRK = shangJiaRKLedMapper.getIncomplete();
+        if(incomplete_ShangJiaRK == null){
+            incomplete_ShangJiaRK = new SumAndCount();
         }
         SumAndCount complete_ShangJiaRK = shangJiaRKLedMapper.getComplete();
         if(complete_ShangJiaRK == null){
             complete_ShangJiaRK = new SumAndCount();
         }
+
         SumAndCount totalToday_case = shangJiaRKLedMapper.getTotalTodayCase();
         if(totalToday_case == null){
             totalToday_case = new SumAndCount();
@@ -44,33 +46,45 @@ public class ZanCunRKLedServiceImpl implements ZanCunRKLedService {
         if(complete_case == null){
             complete_case = new SumAndCount();
         }
-        SumAndCount totalToday_PK = shangJiaRKLedMapper.getTotalTodayPK();
-        if(totalToday_PK == null){
-            totalToday_PK = new SumAndCount();
+        SumAndCount incomplete_PK = shangJiaRKLedMapper.getIncompletePK();
+        if(incomplete_PK == null){
+            incomplete_PK = new SumAndCount();
         }
         SumAndCount complete_PK = shangJiaRKLedMapper.getCompletePK();
         if(complete_PK == null){
             complete_PK = new SumAndCount();
         }
-        Integer totalToday_ZanCunCK = shangJiaRKLedMapper.getTotalTodayZanCunCK();
+
+        Integer incomplete_ZanCunCK = shangJiaRKLedMapper.getIncompleteZanCunCK();
         Integer complete_ZanCunCK = shangJiaRKLedMapper.getCompleteZanCunCK();
-        SumAndCount buHuo = shangJiaRKLedMapper.getBuHuoData();
-        if(buHuo == null){
-            buHuo = new SumAndCount();
+        SumAndCount complete_buHuo = shangJiaRKLedMapper.getcompleteBuHuoData();
+        if(complete_buHuo == null){
+            complete_buHuo = new SumAndCount();
+        }
+        SumAndCount incomplete_buHuo = shangJiaRKLedMapper.getIncompleteBuHuoData();
+        if(incomplete_buHuo == null){
+            incomplete_buHuo = new SumAndCount();
         }
 
         Map<String, Object> map = new HashMap<>();
-        map.put("totalToday_ZanCunRK", totalToday_ZanCunRK);
+        map.put("incomplete_ZanCunRK", incomplete_ZanCunRK);
         map.put("complete_ZanCunRK", complete_ZanCunRK);
-        map.put("totalToday_ShangJiaRK", totalToday_ShangJiaRK);
+
+        map.put("incomplete_ShangJiaRK", incomplete_ShangJiaRK);
         map.put("complete_ShangJiaRK", complete_ShangJiaRK);
+
         map.put("totalToday_case", totalToday_case);
         map.put("complete_case", complete_case);
-        map.put("totalToday_PK", totalToday_PK);
+
+        map.put("incomplete_PK", incomplete_PK);
         map.put("complete_PK", complete_PK);
-        map.put("totalToday_ZanCunCK", totalToday_ZanCunCK);
+
+        map.put("incomplete_ZanCunCK", incomplete_ZanCunCK);
         map.put("complete_ZanCunCK", complete_ZanCunCK);
-        map.put("buHuo", buHuo);
+
+        map.put("complete_BuHuo", complete_buHuo);
+        map.put("incomplete_BuHuo", incomplete_buHuo);
+
 
 
         return ServerResponse.createBySuccess(map);

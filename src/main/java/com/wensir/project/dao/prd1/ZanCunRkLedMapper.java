@@ -10,4 +10,6 @@ public interface ZanCunRkLedMapper {
     Integer getTotalToday();
 
     Integer getComplete();
+
+    Integer getIncomplete();
 }

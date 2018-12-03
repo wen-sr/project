@@ -49,4 +49,7 @@
     from zancunrkLed
     where dd = to_char(sysdate,'yyyymmdd') and idstatus in ('1')
   </select>
+  <select id="getIncomplete" resultType="java.lang.Integer">
+    select sum(countId) from zancunrkLed where idstatus in ('A')
+  </select>
 </mapper>

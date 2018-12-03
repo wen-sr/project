@@ -106,9 +106,12 @@ function five() {
 function getData(){
     $.ajax({
         type:"POST",
-        url:"/project/led/baozhuang",
+        url:"/project/led/xiangku",
         success:function (res) {
             if(res.data == null) {
+                return;
+            }
+            if(res.data.pick == null) {
                 return;
             }
             $("#one").html("");
@@ -116,70 +119,70 @@ function getData(){
             $("#three").html("");
             $("#four").html("");
 
-            var theader = "<tr><td>作业人员</td><td>包装册数</td><td>包装品种</td><td>包装件数</td><td>效率</td><td>排名</td></tr>";
+            var pick = res.data.pick;
+            var theader = "<tr><td>作业人员</td><td>拣选册数</td><td>拣选订单行</td><td>效率</td><td>排名</td></tr>";
             var t1 = "<table cellpadding='0' cellspacing='0' style='font-size: 18px;width: 100%;font-weight:normal;border-spacing:0px 1.5px;'>" + theader;
 
-            for(var i = 0; i < (res.data.length > 8 ? 8 : res.data.length); i++ ){
-                var data = res.data[i];
-                t1 += "<tr><td>" + data.usrFname + "</td><td>" + data.qty + "</td><td>" + data.skucount + "</td><td>" + data.caseqty + "</td><td>" + data.efficiency + "</td><td>" + (i+1) + "</td></tr>";
+            for(var i = 0; i < (pick.length > 8 ? 8 : pick.length); i++ ){
+                var data = pick[i];
+                t1 += "<tr><td>" + data.employeename + "</td><td>" + data.count + "</td><td>" + data.ordercode + "</td><td>" + data.efficiency + "</td><td>" + (i+1) + "</td></tr>";
             }
 
             var t2 = "";
-            if(res.data.length >= 8){
+            if(pick.length >= 8){
                 t2 = "<table cellpadding='0' cellspacing='0' style='font-size: 18px;width: 100%;font-weight:normal;border-spacing:0px 1.5px;'>" + theader;
 
-                for(var i = 8; i < (res.data.length > 16 ? 16 : res.data.length); i++ ){
-                    var data = res.data[i];
-                    t2 += "<tr><td>" + data.usrFname + "</td><td>" + data.qty + "</td><td>" + data.skucount + "</td><td>" + data.caseqty + "</td><td>" + data.efficiency + "</td><td>" + (i+1) + "</td></tr>";
+                for(var i = 8; i < (pick.length > 16 ? 16 : pick.length); i++ ){
+                    var data = pick[i];
+                    t2 += "<tr><td>" + data.employeename + "</td><td>" + data.count + "</td><td>" + data.ordercode + "</td><td>" + data.efficiency + "</td><td>" + (i+1) + "</td></tr>";
                 }
             }
             var t3 = "";
-            if(res.data.length >= 16){
+            if(pick.length >= 16){
                 t3 = "<table cellpadding='0' cellspacing='0' style='font-size: 18px;width: 100%;font-weight:normal;border-spacing:0px 1.5px;'>" + theader;
-                for(var i = 16; i < (res.data.length > 24 ? 24 : res.data.length); i++ ){
-                    var data = res.data[i];
-                    t3 += "<tr><td>" + data.usrFname + "</td><td>" + data.qty + "</td><td>" + data.skucount + "</td><td>" + data.caseqty + "</td><td>" + data.efficiency + "</td><td>" + (i+1) + "</td></tr>";
+                for(var i = 16; i < (pick.length > 24 ? 24 : pick.length); i++ ){
+                    var data = pick[i];
+                    t3 += "<tr><td>" + data.employeename + "</td><td>" + data.count + "</td><td>" + data.ordercode + "</td><td>" + data.efficiency + "</td><td>" + (i+1) + "</td></tr>";
                 }
             }
 
             var t4 = "";
-            if(res.data.length >= 24){
+            if(pick.length >= 24){
                 t4 = "<table cellpadding='0' cellspacing='0' style='font-size: 18px;width: 100%;font-weight:normal;border-spacing:0px 1.5px;'>" + theader;
-                for(var i = 24; i < (res.data.length > 32 ? 32 : res.data.length); i++ ){
-                    var data = res.data[i];
-                    t4 += "<tr><td>" + data.usrFname + "</td><td>" + data.qty + "</td><td>" + data.skucount + "</td><td>" + data.caseqty + "</td><td>" + data.efficiency + "</td><td>" + (i+1) + "</td></tr>";
+                for(var i = 24; i < (pick.length > 32 ? 32 : pick.length); i++ ){
+                    var data = pick[i];
+                    t4 += "<tr><td>" + data.employeename + "</td><td>" + data.count + "</td><td>" + data.ordercode + "</td><td>" + data.efficiency + "</td><td>" + (i+1) + "</td></tr>";
                 }
             }
 
             var t5 = "";
-            if(res.data.length >= 32){
+            if(pick.length >= 32){
                 t5 = "<table cellpadding='0' cellspacing='0' style='font-size: 18px;width: 100%;font-weight:normal;border-spacing:0px 1.5px;'>" + theader;
-                for(var i = 32; i < (res.data.length > 40 ? 40 : res.data.length); i++ ){
-                    var data = res.data[i];
-                    t5 += "<tr><td>" + data.usrFname + "</td><td>" + data.qty + "</td><td>" + data.skucount + "</td><td>" + data.caseqty + "</td><td>" + data.efficiency + "</td><td>" + (i+1) + "</td></tr>";
+                for(var i = 32; i < (pick.length > 40 ? 40 : pick.length); i++ ){
+                    var data = pick[i];
+                    t5 += "<tr><td>" + data.employeename + "</td><td>" + data.count + "</td><td>" + data.ordercode + "</td><td>" + data.efficiency + "</td><td>" + (i+1) + "</td></tr>";
                 }
             }
 
             var sumqty = 0;
             var sumsku = 0;
             var sumcaseqty = 0;
-            for(var j = 0; j < res.data.length ; j++){
-                sumqty += res.data[j].qty;
-                sumsku += res.data[j].skucount;
-                sumcaseqty += res.data[j].caseqty
+            for(var j = 0; j < pick.length ; j++){
+                sumqty += pick[j].count;
+                sumsku += pick[j].ordercode;
             }
 
-            var length = parseInt(res.data.length);
+            var length = parseInt(pick.length);
             if(length < 8){
-                t1 += "<tr><td colspan='1'>合计</td><td>" + sumqty + "</td><td> " + sumsku +"</td><td colspan='3'>"+ sumcaseqty +"</td></tr></table>";
+                t1 += "<tr><td colspan='1'>合计</td><td>" + sumqty + "</td><td> " + sumsku +"</td><td colspan='2'>&nbsp;</td></tr></table>";
             }else if (8 <= length && length < 16){
-                t2 += "<tr><td colspan='1'>合计</td><td>" + sumqty + "</td><td> " + sumsku +"</td><td colspan='3'>"+ sumcaseqty +"</td></tr></table>";
+                t2 += "<tr><td colspan='1'>合计</td><td>" + sumqty + "</td><td> " + sumsku +"</td><td colspan='2'>&nbsp;</td></tr></table>";
             }else if(16 <= length && length < 24){
-                t3 += "<tr><td colspan='1'>合计</td><td>" + sumqty + "</td><td> " + sumsku +"</td><td colspan='3'>"+ sumcaseqty +"</td></tr></table>";
+                t3 += "<tr><td colspan='1'>合计</td><td>" + sumqty + "</td><td> " + sumsku +"</td><td colspan='2'>&nbsp;</td></tr></table>";
             }else if(24 <= length && length < 32){
-                t4 += "<tr><td colspan='1'>合计</td><td>" + sumqty + "</td><td> " + sumsku +"</td><td colspan='3'>"+ sumcaseqty +"</td></tr></table>";
+                t4 += "<tr><td colspan='1'>合计</td><td>" + sumqty + "</td><td> " + sumsku +"</td><td colspan='2'>&nbsp;</td></tr></table>";
             }else if(32 <= length && length < 40){
-                t5 += "<tr><td colspan='1'>合计</td><td>" + sumqty + "</td><td> " + sumsku +"</td><td colspan='3'>"+ sumcaseqty +"</td></tr></table>";
+                t5 += "<tr><td colspan='1'>合计</td><td>" + sumqty + "</td><td> " + sumsku +"</td><td colspan='2'>&nbsp;</td></tr></table>";
             }
 
             $("#one").html(t1);

@@ -1,7 +1,10 @@
 package com.wensir.project.dao.prd1;
 
+import com.wensir.project.pojo.prd1.BaoZhuangLed;
 import com.wensir.project.pojo.prd1.ShangJiaRKLed;
 import com.wensir.project.vo.SumAndCount;
+
+import java.util.List;
 
 public interface ShangJiaRKLedMapper {
     int insert(ShangJiaRKLed record);
@@ -12,19 +15,25 @@ public interface ShangJiaRKLedMapper {
 
     SumAndCount getComplete();
 
+    SumAndCount getIncomplete();
+
     SumAndCount getTotalTodayCase();
 
     SumAndCount getCompleteCase();
 
-    SumAndCount getTotalTodayPK();
+    SumAndCount getIncompletePK();
 
     SumAndCount getCompletePK();
 
-    Integer getTotalTodayZanCunCK();
+    Integer getIncompleteZanCunCK();
 
     Integer getCompleteZanCunCK();
 
     SumAndCount getTotalTodayCaseCK();
 
     SumAndCount getBuHuoData();
+
+    SumAndCount getcompleteBuHuoData();
+
+    SumAndCount getIncompleteBuHuoData();
 }

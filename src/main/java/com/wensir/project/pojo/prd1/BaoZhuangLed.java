@@ -15,14 +15,16 @@ public class BaoZhuangLed {
 
     private BigDecimal skucount;
 
+    private BigDecimal efficiency;
 
-    public BaoZhuangLed(String dd, String packUser, String usrFname, BigDecimal caseqty, BigDecimal qty, BigDecimal skucount) {
+    public BaoZhuangLed(String dd, String packUser, String usrFname, BigDecimal caseqty, BigDecimal qty, BigDecimal skucount, BigDecimal efficiency) {
         this.dd = dd;
         this.packUser = packUser;
         this.usrFname = usrFname;
         this.caseqty = caseqty;
         this.qty = qty;
         this.skucount = skucount;
+        this.efficiency = efficiency;
     }
 
     public BaoZhuangLed() {
@@ -77,4 +79,11 @@ public class BaoZhuangLed {
         this.skucount = skucount;
     }
 
+    public BigDecimal getEfficiency() {
+        return efficiency;
+    }
+
+    public void setEfficiency(BigDecimal efficiency) {
+        this.efficiency = efficiency;
+    }
 }

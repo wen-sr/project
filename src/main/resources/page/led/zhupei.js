@@ -69,53 +69,106 @@ function getData(){
             if(res.data == null) {
                 return;
             }
+
+            var zhuPeiLedList = res.data.zhuPeiLedList;
+            var zhuPeiZongBiaoList = res.data.zhuPeiZongBiaoList;
             $("#one").html("");
             $("#two").html("");
             $("#three").html("");
+            $("#four").html("");
+            $("#five").html("");
+            var header = "<tr><td>作业线</td><td>上线册数</td><td>上线品种</td><td>效率值</td><td>排名</td></tr>";
             var t1 = "<table cellpadding='0' cellspacing='0' style='font-size: 18px;width: 100%;font-weight:normal;border-spacing:0px 1.5px;'>" +
-                "<tr><td>货主类型</td><td>作业线</td><td>上线册数</td><td>上线品种</td><td>效率值</td><td>排名</td></tr>";
-            for(var i = 0; i < (res.data.length > 8 ? 8 : res.data.length); i++ ){
-                var data = res.data[i];
-                t1 += "<tr><td>" + data.storer + data.type + "</td><td>" + data.ailid + "</td><td>" + data.sorqty + "</td><td>" + data.skucount + "</td><td>" + 00 + "</td><td>" + (i+1) + "</td></tr>"
+                header;
+            for(var i = 0; i < (zhuPeiLedList.length > 8 ? 8 : zhuPeiLedList.length); i++ ){
+                var data = zhuPeiLedList[i];
+                t1 += "<tr><td>" + data.ailid + "</td><td>" + data.sorqty + "</td><td>" + data.skucount + "</td><td>" + data.efficiency + "</td><td>" + (i+1) + "</td></tr>"
             }
 
             var t2 = "";
-            if(res.data.length >= 8){
+            if(zhuPeiLedList.length >= 8){
                 t2 = "<table cellpadding='0' cellspacing='0' style='font-size: 18px;width: 100%;font-weight:normal;border-spacing:0px 1.5px;'>" +
-                    "<tr><td>货主类型</td><td>作业线</td><td>上线册数</td><td>上线品种</td><td>效率值</td><td>排名</td></tr>";
-                for(var i = 8; i < (res.data.length > 16 ? 16 : res.data.length); i++ ){
-                    var data = res.data[i];
-                    t2 += "<tr><td>" + data.storer + data.type + "</td><td>" + data.ailid + "</td><td>" + data.sorqty + "</td><td>" + data.skucount + "</td><td>" + 00 + "</td><td>" + (i+1) + "</td></tr>"
+                    header;
+                for(var i = 8; i < (zhuPeiLedList.length > 16 ? 16 : zhuPeiLedList.length); i++ ){
+                    var data = zhuPeiLedList[i];
+                    t2 += "<tr><td>" + data.ailid + "</td><td>" + data.sorqty + "</td><td>" + data.skucount + "</td><td>" + data.efficiency + "</td><td>" + (i+1) + "</td></tr>"
                 }
             }
             var t3 = "";
-            if(res.data.length >= 16){
+            if(zhuPeiLedList.length >= 16){
                 t3 = "<table cellpadding='0' cellspacing='0' style='font-size: 18px;width: 100%;font-weight:normal;border-spacing:0px 1.5px;'>" +
-                    "<tr><td>货主类型</td><td>作业线</td><td>上线册数</td><td>上线品种</td><td>效率值</td><td>排名</td></tr>";
-                for(var i = 16; i < (res.data.length > 24 ? 24 : res.data.length); i++ ){
-                    var data = res.data[i];
-                    t3 += "<tr><td>" + data.storer + data.type + "</td><td>" + data.ailid + "</td><td>" + data.sorqty + "</td><td>" + data.skucount + "</td><td>" + 00 + "</td><td>" + (i+1) + "</td></tr>"
+                    header;
+                for(var i = 16; i < (zhuPeiLedList.length > 24 ? 24 : zhuPeiLedList.length); i++ ){
+                    var data = zhuPeiLedList[i];
+                    t3 += "<tr><td>" + data.ailid + "</td><td>" + data.sorqty + "</td><td>" + data.skucount + "</td><td>" + data.efficiency + "</td><td>" + (i+1) + "</td></tr>"
+                }
+            }
+            var t4 = "";
+            if(zhuPeiLedList.length >= 24){
+                t4 = "<table cellpadding='0' cellspacing='0' style='font-size: 18px;width: 100%;font-weight:normal;border-spacing:0px 1.5px;'>" +
+                    header;
+                for(var i = 24; i < (zhuPeiLedList.length > 32 ? 32 : zhuPeiLedList.length); i++ ){
+                    var data = zhuPeiLedList[i];
+                    t4 += "<tr><td>" + data.ailid + "</td><td>" + data.sorqty + "</td><td>" + data.skucount + "</td><td>" + data.efficiency + "</td><td>" + (i+1) + "</td></tr>"
+                }
+            }
+            var t5 = "";
+            if(zhuPeiLedList.length >= 32){
+                t5 = "<table cellpadding='0' cellspacing='0' style='font-size: 18px;width: 100%;font-weight:normal;border-spacing:0px 1.5px;'>" +
+                    header;
+                for(var i = 32; i < (zhuPeiLedList.length > 40 ? 40 : zhuPeiLedList.length); i++ ){
+                    var data = zhuPeiLedList[i];
+                    t5 += "<tr><td>" + data.ailid + "</td><td>" + data.sorqty + "</td><td>" + data.skucount + "</td><td>" + data.efficiency + "</td><td>" + (i+1) + "</td></tr>"
                 }
             }
 
             var sumqty = 0;
             var sumsku = 0;
-            for(var j = 0; j < res.data.length ; j++){
-                sumqty += res.data[j].sorqty;
-                sumsku += res.data[j].skucount;
+            for(var j = 0; j < zhuPeiLedList.length ; j++){
+                sumqty += zhuPeiLedList[j].sorqty;
+                sumsku += zhuPeiLedList[j].skucount;
             }
-            var length = parseInt(res.data.length);
+            var length = parseInt(zhuPeiLedList.length);
             if(length < 8){
-                t1 += "<tr><td>合计</td><td>&nbsp;</td><td>" + sumqty + "</td><td> " + sumsku +"</td><td>&nbsp;</td><td>&nbsp;</td></tr></table>";
+                t1 += "<tr><td>合计</td><td>" + sumqty + "</td><td> " + sumsku +"</td><td>&nbsp;</td><td>&nbsp;</td></tr>";
             }else if (8 <= length && length < 16){
-                t2 += "<tr><td>合计</td><td>&nbsp;</td><td>" + sumqty + "</td><td> " + sumsku +"</td><td>&nbsp;</td><td>&nbsp;</td></tr></table>";
+                t2 += "<tr><td>合计</td><td>" + sumqty + "</td><td> " + sumsku +"</td><td>&nbsp;</td><td>&nbsp;</td></tr>";
             }else if(16 <= length && length < 24){
-                t3 += "<tr><td>合计</td><td>&nbsp;</td><td>" + sumqty + "</td><td> " + sumsku +"</td><td>&nbsp;</td><td>&nbsp;</td></tr></table>";
+                t3 += "<tr><td>合计</td><td>" + sumqty + "</td><td> " + sumsku +"</td><td>&nbsp;</td><td>&nbsp;</td></tr>";
+            }else if(24 <= length && length < 32){
+                t3 += "<tr><td>合计</td><td>" + sumqty + "</td><td> " + sumsku +"</td><td>&nbsp;</td><td>&nbsp;</td></tr>";
+            }else if(32 <= length && length < 40){
+                t3 += "<tr><td>合计</td><td>" + sumqty + "</td><td> " + sumsku +"</td><td>&nbsp;</td><td>&nbsp;</td></tr>";
+            }
+
+            while (true){
+                if(t1 == ""){
+                    t1 += getHTML(zhuPeiZongBiaoList);
+                    break;
+                }
+                if(t2 == ""){
+                    t2 += getHTML(zhuPeiZongBiaoList);
+                    break;
+                }
+                if(t3 == ""){
+                    t3 += getHTML(zhuPeiZongBiaoList);
+                    break;
+                }
+                if(t4 == ""){
+                    t4 += getHTML(zhuPeiZongBiaoList);
+                    break;
+                }
+                if(t5 == ""){
+                    t5 += getHTML(zhuPeiZongBiaoList);
+                    break;
+                }
             }
 
             $("#one").html(t1);
             $("#two").html(t2);
             $("#three").html(t3);
+            $("#four").html(t4);
+            $("#five").html(t5);
         },
         error:function(){
             alert("数据错误，联系管理员");
@@ -123,7 +176,31 @@ function getData(){
     });
 }
 
+function getHTML(zhuPeiZongBiaoList) {
+    var t1 = "";
+    t1 += "<table cellpadding='0' cellspacing='0' style='font-size: 18px;width: 100%;font-weight:normal;border-spacing:0px 1.5px;'>";
+    t1 += "<tr><td>作业类型</td><td>总任务(册/单)</td><td>已完成(册/单)</td><td>未完成(册/单)</td><td>完成率</td></tr>";
+    for(var i = 0; i<zhuPeiZongBiaoList.length; i++){
+        t1 += "<tr><td>" + zhuPeiZongBiaoList[i].tt + "</td><td>" + zhuPeiZongBiaoList[i].totalQty + "/" + zhuPeiZongBiaoList[i].totalCount + "</td><td>" + zhuPeiZongBiaoList[i].completeQty + "/" + zhuPeiZongBiaoList[i].completeCount + "</td><td>" + zhuPeiZongBiaoList[i].incompleteQty + "/" + zhuPeiZongBiaoList[i].incompleteCount + "</td><td>" + Math.round(parseFloat(zhuPeiZongBiaoList[i].completeQty)/parseFloat(zhuPeiZongBiaoList[i].totalQty)*100) +"%</td></tr>";
+    }
+    var sumTotalQty = 0;
+    var sumCompleteQty = 0;
+    var sumIncompleteQty = 0;
+    var sumTotalCount = 0;
+    var sumCompleteCount = 0;
+    var sumIncompleteCount = 0;
+    for(var i = 0; i<zhuPeiZongBiaoList.length; i++){
+        sumTotalQty += zhuPeiZongBiaoList[i].totalQty;
+        sumCompleteQty += zhuPeiZongBiaoList[i].completeQty;
+        sumIncompleteQty += zhuPeiZongBiaoList[i].incompleteQty;
+        sumTotalCount += zhuPeiZongBiaoList[i].totalCount;
+        sumCompleteCount += zhuPeiZongBiaoList[i].completeCount;
+        sumIncompleteCount += zhuPeiZongBiaoList[i].incompleteCount;
 
+    }
+    t1 += "<tr><td>合计</td><td>"+ sumTotalQty + "/" + sumTotalCount +"</td><td>" + sumCompleteQty + "/" + sumCompleteCount +"</td><td>"+ sumIncompleteQty + "/" + sumIncompleteCount +"</td><td>"+ Math.round(parseFloat(sumCompleteQty)/parseFloat(sumTotalQty)*100) +"%</td></tr>";
+    return t1;
+}
 
 //获取时间并设置格式
 function GetTime() {

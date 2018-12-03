@@ -32,6 +32,21 @@ public class DataSourceConfig {
         return DataSourceBuilder.create().build();
     }
 
+    //数据源1
+    @Bean(name = "ops")
+    @ConfigurationProperties(prefix = "spring.datasource.ops") // application.properteis中对应属性的前缀
+    public DataSource ops() {
+        return DataSourceBuilder.create().build();
+    }
+
+
+    //数据源1
+    @Bean(name = "xhtransit")
+    @ConfigurationProperties(prefix = "spring.datasource.xhtransit") // application.properteis中对应属性的前缀
+    public DataSource xhTransit() {
+        return DataSourceBuilder.create().build();
+    }
+
     //数据源2
     @Bean(name = "mysql")
     @ConfigurationProperties(prefix = "spring.datasource.db5") // application.properteis中对应属性的前缀
@@ -54,6 +69,8 @@ public class DataSourceConfig {
         dsMap.put("prd1", prd1());
         dsMap.put("mysql", mysql());
         dsMap.put("wes", wes());
+        dsMap.put("ops", ops());
+        dsMap.put("xhtransit", xhTransit());
 
         dynamicDataSource.setTargetDataSources(dsMap);
         return dynamicDataSource;

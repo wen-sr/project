@@ -50,7 +50,18 @@
     select sum(qty) sumQty,sum(countboxno) countQty from shangjiarkLed where dd = to_char(sysdate,'yyyymmdd')
   </select>
   <select id="getComplete" resultType="com.wensir.project.vo.SumAndCount">
-    select sum(qty) sumQty,sum(countboxno) countQty from shangjiarkLed where dd = to_char(sysdate,'yyyymmdd') and status = '9'
+    select sum(qty) sumQty,sum(countBoxno) countQty from (
+    select sum(qty) qty,sum(countboxno) countBoxno from shangjiarkLed where dd = to_char(sysdate,'yyyymmdd') and status = '9'
+    union
+    SELECT sum(qty) qty,count(distinct boxno) countBoxno FROM WMS_BOX_BIND WHERE  boxno like '%P%' AND STATUS = '99' and trunc(sysdate) = trunc(finishdate)
+    )
+  </select>
+  <select id="getIncomplete" resultType="com.wensir.project.vo.SumAndCount">
+    select sum(qty) qty,sum(countBoxno) countBoxno from (
+    select sum(qty) qty,sum(countboxno) countBoxno from shangjiarkLed where status <![CDATA[ <> ]]> '9'
+    union
+    SELECT sum(qty) qty,count(distinct boxno) countBoxno FROM WMS_BOX_BIND WHERE  boxno like '%P%' AND STATUS <![CDATA[ <> ]]> '99'
+    )
   </select>
   <select id="getTotalTodayCase" resultType="com.wensir.project.vo.SumAndCount">
     select count(distinct boxno_bind) countQty,sum(nvl(susr1,1)) sumQty
@@ -62,26 +73,30 @@
     from caseid
     where to_char(adddate,'yyyymmdd') = to_char(sysdate,'yyyymmdd') and BOXNO_BIND LIKE '%P%'  AND contouttaskno <![CDATA[ <> ]]> '0'
   </select>
-  <select id="getTotalTodayPK" resultType="com.wensir.project.vo.SumAndCount">
+  <select id="getIncompletePK" resultType="com.wensir.project.vo.SumAndCount">
     select count(distinct old_id) countQty, sum(qty) sumQty
     from pickdetail
-    where uom  =2 and old_loc = '42SMART' and  to_char(adddate,'yyyymmdd') = to_char(sysdate,'yyyymmdd')
+    where uom = 2
+     and old_loc = '42SMART'
+     and status = '0'
   </select>
   <select id="getCompletePK" resultType="com.wensir.project.vo.SumAndCount">
     select count(distinct old_id) countQty, sum(qty) sumQty
     from pickdetail
-    where uom  =2 and old_loc = '42SMART' and  to_char(adddate,'yyyymmdd') = to_char(sysdate,'yyyymmdd') and status <![CDATA[ <> ]]> '0'
+    where uom = 2
+    and old_loc = '42SMART'
+    and to_char(pick_date, 'yyyymmdd') = to_char(sysdate, 'yyyymmdd')
+    and status <![CDATA[ <> ]]> '0'
   </select>
-  <select id="getTotalTodayZanCunCK" resultType="java.lang.Integer">
+  <select id="getIncompleteZanCunCK" resultType="java.lang.Integer">
     select count(distinct id)
     from xsogroupdetail
-    where to_char(output_date,'yyyymmdd') = to_char(sysdate, 'yyyymmdd')
-    and  idstatus in ('2','3')
+    where idstatus in ('2')
   </select>
   <select id="getCompleteZanCunCK" resultType="java.lang.Integer">
     select count(distinct id)
     from xsogroupdetail
-    where to_char(output_date,'yyyymmdd') = to_char(sysdate, 'yyyymmdd')
+    where to_char(TRAYS_OUT_TIME,'yyyymmdd') = to_char(sysdate, 'yyyymmdd')
     and  idstatus in ('3')
   </select>
   <select id="getTotalTodayCaseCK" resultType="com.wensir.project.vo.SumAndCount">
@@ -95,10 +110,17 @@
   </select>
   <select id="getBuHuoData" resultType="com.wensir.project.vo.SumAndCount">
     select
-    (select sum(qty) from replenishment where status <![CDATA[ <> ]]> '4' and qty>0 and trunc(sysdate)=trunc(adddate)) sumQty,
-    (select sum(count(0)) from replenishment where status <![CDATA[ <> ]]> '4' and qty>0 and trunc(sysdate)=trunc(adddate) group by id) countQty,
+    (select sum(qty) from replenishment where status<![CDATA[ <> ]]>'4' and qty>0 and trunc(sysdate)=trunc(adddate)) sumQty,
+    (select count(0) from (select id from replenishment where status<![CDATA[ <> ]]>'4' and qty>0 and trunc(sysdate)=trunc(adddate) group by id)) countQty,
     (select sum(qtyinpickloc) from replenishment where status='9' and trunc(sysdate)=trunc(adddate)) completeQty,
-    (select sum(count(0)) from replenishment where status='9' and trunc(sysdate)=trunc(adddate) group by id) completeCount
+    (select count(0) from (select id from replenishment where status='9' and trunc(sysdate)=trunc(adddate) group by id)) completeCount
     from dual
+
+  </select>
+  <select id="getcompleteBuHuoData" resultType="com.wensir.project.vo.SumAndCount">
+    select sum(qtyinpickloc) sumQty,count (distinct id) countQty from replenishment where status='9' and trunc(sysdate)=trunc(adddate)
+  </select>
+  <select id="getIncompleteBuHuoData" resultType="com.wensir.project.vo.SumAndCount">
+    select sum(qtyinpickloc) sumQty,count (distinct id) countQty from replenishment where status in('0','1','2')
   </select>
 </mapper>

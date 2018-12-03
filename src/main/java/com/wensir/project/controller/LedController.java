@@ -1,6 +1,7 @@
 package com.wensir.project.controller;
 
 import com.wensir.project.common.ServerResponse;
+import com.wensir.project.service.ops.XiangKuLedService;
 import com.wensir.project.service.prd1.BaoZhuangLedService;
 import com.wensir.project.service.prd1.ShangJiaRKLedService;
 import com.wensir.project.service.prd1.ZanCunRKLedService;
@@ -24,6 +25,9 @@ public class LedController {
     @Autowired
     ZanCunRKLedService zanCunRKLedService;
 
+    @Autowired
+    XiangKuLedService xiangKuLedService;
+
     @RequestMapping(value = {"/zhupei" }, method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse zhupei(){
@@ -42,6 +46,13 @@ public class LedController {
     @ResponseBody
     public ServerResponse tuopan4(){
         ServerResponse response = zanCunRKLedService.getTuoPan4LedData();
+        return response;
+    }
+
+    @RequestMapping(value = {"/xiangku" }, method = RequestMethod.POST)
+    @ResponseBody
+    public ServerResponse xiangku(){
+        ServerResponse response = xiangKuLedService.getXiangKuLedData();
         return response;
     }
 }

@@ -3,10 +3,6 @@ package com.wensir.project.pojo.wes;
 import java.math.BigDecimal;
 
 public class ZhuPeiLed {
-    private String storer;
-
-    private String type;
-
     private String ailid;
 
     private BigDecimal sorqty;
@@ -15,33 +11,18 @@ public class ZhuPeiLed {
 
     private String dd;
 
-    public ZhuPeiLed(String storer, String type, String ailid, BigDecimal sorqty, Integer skucount, String dd) {
-        this.storer = storer;
-        this.type = type;
+    private BigDecimal efficiency;
+
+    public ZhuPeiLed(String ailid, BigDecimal sorqty, Integer skucount, String dd, BigDecimal efficiency) {
         this.ailid = ailid;
         this.sorqty = sorqty;
         this.skucount = skucount;
         this.dd = dd;
+        this.efficiency = efficiency;
     }
 
     public ZhuPeiLed() {
         super();
-    }
-
-    public String getStorer() {
-        return storer;
-    }
-
-    public void setStorer(String storer) {
-        this.storer = storer == null ? null : storer.trim();
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type == null ? null : type.trim();
     }
 
     public String getAilid() {
@@ -74,5 +55,13 @@ public class ZhuPeiLed {
 
     public void setDd(String dd) {
         this.dd = dd == null ? null : dd.trim();
+    }
+
+    public BigDecimal getEfficiency() {
+        return efficiency;
+    }
+
+    public void setEfficiency(BigDecimal efficiency) {
+        this.efficiency = efficiency;
     }
 }

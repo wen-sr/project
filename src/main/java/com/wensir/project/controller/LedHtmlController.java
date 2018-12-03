@@ -32,4 +32,9 @@ public class LedHtmlController {
     public String tuopan4() {
         return "led/tuopan4";
     }
+
+    @RequestMapping(value = {"/xiangku", "/xiangku.html"}, method = RequestMethod.GET)
+    public String xiangku() {
+        return "led/xiangku";
+    }
 }

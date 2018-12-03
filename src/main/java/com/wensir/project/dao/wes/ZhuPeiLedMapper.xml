@@ -1,68 +1,62 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.wensir.project.dao.wes.ZhuPeiLedMapper" >
-  <resultMap id="BaseResultMap" type="com.wensir.project.pojo.wes.ZhuPeiLed" >
-    <constructor >
-      <arg column="STORER" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="TYPE" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="AILID" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="sorqty" jdbcType="NUMERIC" javaType="java.math.BigDecimal" />
-      <arg column="skucount" jdbcType="INTEGER" javaType="java.lang.Integer" />
-      <arg column="dd" jdbcType="VARCHAR" javaType="java.lang.String" />
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wensir.project.dao.wes.ZhuPeiLedMapper">
+  <resultMap id="BaseResultMap" type="com.wensir.project.pojo.wes.ZhuPeiLed">
+    <constructor>
+      <arg column="AILID" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="sorqty" javaType="java.math.BigDecimal" jdbcType="NUMERIC" />
+      <arg column="skucount" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="dd" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="efficiency" javaType="java.math.BigDecimal" jdbcType="NUMERIC" />
     </constructor>
   </resultMap>
-  <insert id="insert" parameterType="com.wensir.project.pojo.wes.ZhuPeiLed" >
-    insert into zhupeiLed (STORER, TYPE, AILID, 
-      sorqty, skucount, dd
-      )
-    values (#{storer,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, #{ailid,jdbcType=VARCHAR}, 
-      #{sorqty,jdbcType=NUMERIC}, #{skucount,jdbcType=INTEGER}, #{dd,jdbcType=VARCHAR}
-      )
+  <insert id="insert" parameterType="com.wensir.project.pojo.wes.ZhuPeiLed">
+    insert into zhupeiLed (AILID, sorqty, skucount, 
+      dd, efficiency)
+    values (#{ailid,jdbcType=VARCHAR}, #{sorqty,jdbcType=NUMERIC}, #{skucount,jdbcType=INTEGER}, 
+      #{dd,jdbcType=VARCHAR}, #{efficiency,jdbcType=NUMERIC})
   </insert>
-  <insert id="insertSelective" parameterType="com.wensir.project.pojo.wes.ZhuPeiLed" >
+  <insert id="insertSelective" parameterType="com.wensir.project.pojo.wes.ZhuPeiLed">
     insert into zhupeiLed
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="storer != null" >
-        STORER,
-      </if>
-      <if test="type != null" >
-        TYPE,
-      </if>
-      <if test="ailid != null" >
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="ailid != null">
         AILID,
       </if>
-      <if test="sorqty != null" >
+      <if test="sorqty != null">
         sorqty,
       </if>
-      <if test="skucount != null" >
+      <if test="skucount != null">
         skucount,
       </if>
-      <if test="dd != null" >
+      <if test="dd != null">
         dd,
       </if>
+      <if test="efficiency != null">
+        efficiency,
+      </if>
     </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="storer != null" >
-        #{storer,jdbcType=VARCHAR},
-      </if>
-      <if test="type != null" >
-        #{type,jdbcType=VARCHAR},
-      </if>
-      <if test="ailid != null" >
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="ailid != null">
         #{ailid,jdbcType=VARCHAR},
       </if>
-      <if test="sorqty != null" >
+      <if test="sorqty != null">
         #{sorqty,jdbcType=NUMERIC},
       </if>
-      <if test="skucount != null" >
+      <if test="skucount != null">
         #{skucount,jdbcType=INTEGER},
       </if>
-      <if test="dd != null" >
+      <if test="dd != null">
         #{dd,jdbcType=VARCHAR},
+      </if>
+      <if test="efficiency != null">
+        #{efficiency,jdbcType=NUMERIC},
       </if>
     </trim>
   </insert>
-  <select id="getZhuPeiLedData" resultMap="BaseResultMap">
-    select storer,TYPE,ailid,sorqty,skucount,dd from zhupeiLed where dd = convert(varchar(8),getdate(),112) order by 4 DESC ,1 ASC
+  <select id="getZhuPeiLedData" resultType="com.wensir.project.pojo.wes.ZhuPeiLed">
+    select ailid,sorqty,skucount,dd,efficiency from zhupeiLed where dd = convert(varchar(8),getdate(),112) order by 5 DESC
+  </select>
+  <select id="getZhuPeiZongBiaoData" resultType="com.wensir.project.pojo.wes.ZhuPeiZongBiao">
+    select tt,completeQty+incompleteQty totalQty,completeQty,incompleteQty,completeCount,incompleteCount,completeCount+incompleteCount totalCount from zhupeiZongBiao order by 1 desc
   </select>
 </mapper>
