@@ -26,6 +26,13 @@ public class DataSourceConfig {
     }
 
     //数据源1
+    @Bean(name = "wcs")
+    @ConfigurationProperties(prefix = "spring.datasource.wcs") // application.properteis中对应属性的前缀
+    public DataSource wcs() {
+        return DataSourceBuilder.create().build();
+    }
+
+    //数据源1
     @Bean(name = "wes")
     @ConfigurationProperties(prefix = "spring.datasource.wes") // application.properteis中对应属性的前缀
     public DataSource wes() {
@@ -71,6 +78,7 @@ public class DataSourceConfig {
         dsMap.put("wes", wes());
         dsMap.put("ops", ops());
         dsMap.put("xhtransit", xhTransit());
+        dsMap.put("wcs", wcs());
 
         dynamicDataSource.setTargetDataSources(dsMap);
         return dynamicDataSource;

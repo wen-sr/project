@@ -33,6 +33,21 @@ public class LedHtmlController {
         return "led/tuopan4";
     }
 
+    @RequestMapping(value = {"/tuopan3", "/tuopan3.html"}, method = RequestMethod.GET)
+    public String tuopan3() {
+        return "led/tuopan3";
+    }
+
+    @RequestMapping(value = {"/jiaocai", "/jiaocai.html"}, method = RequestMethod.GET)
+    public String jiaocai() {
+        return "led/jiaocai";
+    }
+
+    @RequestMapping(value = {"/lushun", "/lushun.html"}, method = RequestMethod.GET)
+    public String lushun() {
+        return "led/lushun";
+    }
+
     @RequestMapping(value = {"/xiangku", "/xiangku.html"}, method = RequestMethod.GET)
     public String xiangku() {
         return "led/xiangku";
