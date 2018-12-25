@@ -8,7 +8,6 @@ import com.wensir.project.pojo.wcs.ConfigWcs;
 import com.wensir.project.service.wcs.IConfigWcsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class ConfigWcsServiceImpl implements IConfigWcsService {
@@ -31,7 +30,6 @@ public class ConfigWcsServiceImpl implements IConfigWcsService {
     }
 
     @DS("wcs")
-    @Transactional
     @Override
     public ServerResponse updateConfigWcs(String key, String value){
         if(key == null) {
@@ -40,7 +38,7 @@ public class ConfigWcsServiceImpl implements IConfigWcsService {
 
         int i = configWcsMapper.updateConfigWcsByParaName(key, value);
         if(i > 0){
-            return ServerResponse.createBySuccess("修改成功");
+            return ServerResponse.createBySuccessMsg("修改成功");
         }
         return ServerResponse.createBySuccessMsg("修改失败，请联系管理员");
     }

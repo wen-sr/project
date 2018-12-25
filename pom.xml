@@ -6,7 +6,7 @@
 	<groupId>com.wensir</groupId>
 	<artifactId>project</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 
 	<name>project</name>
 	<description>Demo project for Spring Boot</description>
@@ -103,8 +103,33 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
+			<!-- 移除嵌入式tomcat插件 -->
+			<!--<exclusions>-->
+				<!--<exclusion>-->
+					<!--<groupId>org.springframework.boot</groupId>-->
+					<!--<artifactId>spring-boot-starter-tomcat</artifactId>-->
+				<!--</exclusion>-->
+			<!--</exclusions>-->
 		</dependency>
 
+		<!-- marked the embedded servlet container as provided -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<!--<dependency>-->
+			<!--<groupId>javax.servlet</groupId>-->
+			<!--<artifactId>javax.servlet-api</artifactId>-->
+		<!--</dependency>-->
+
+		<!--<dependency>-->
+			<!--<groupId>org.apache.tomcat</groupId>-->
+			<!--<artifactId>tomcat-servlet-api</artifactId>-->
+			<!--<version>8.5.15</version>-->
+			<!--<scope>provided</scope>-->
+		<!--</dependency>-->
 		<!-- 热部署 -->
 		<!-- devtools可以实现页面热部署（即页面修改后会立即生效，
 			这个可以直接在application.properties文件中配置spring.thymeleaf.cache=false来实现） -->
@@ -205,8 +230,31 @@
 			<groupId>com.fasterxml.jackson.module</groupId>
 			<artifactId>jackson-module-jaxb-annotations</artifactId>
 		</dependency>
+		<!--webservice-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web-services</artifactId>
+		</dependency>
+        <!--webservice-->
+        <!--web service 以下都是cxf必备的--> <!--org.apache.cxf.transport.servlet.CXFServlet-->
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-transports-http</artifactId>
+            <version>3.1.8</version>
+        </dependency> <!--不加这个包会报错Unable to locate spring NamespaceHandler for XML schema namespace [http://cxf.apache.org/jaxws]-->
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-frontend-jaxws</artifactId>
+            <version>3.1.8</version>
+        </dependency> <!--java实现webservice，不部署到tomcat，需要jetty包支持-->
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-transports-http-jetty</artifactId>
+            <version>3.1.8</version>
+        </dependency>
 
-	</dependencies>
+
+    </dependencies>
 
 	<build>
 		<plugins>

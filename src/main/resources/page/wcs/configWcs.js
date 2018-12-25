@@ -5,7 +5,6 @@ $(function(){
 function getCurrentConfig(){
     $.ajax({
         type:"POST",
-        param:"",
         url:"/project/wcs/config/select",
         success:function (res) {
             if(res.status == "0"){
@@ -31,17 +30,13 @@ function submitConfig() {
     }
     $.ajax({
         type:"POST",
-        param:"",
+        data:formData,
+        dataType:'json',
         url:"/project/wcs/config/update",
         success:function (res) {
-            if(res.status == "0"){
-                $("#current").html("");
-                if(value == "Y"){
-                    $("#current").html("入4#箱库");
-                }else {
-                    $("#current").html("差异口回收");
-                }
-            }
+            $.messager.alert("提示",res.msg,"info", function () {
+                getCurrentConfig();
+            });
         },
         error:function(){
             $.messager.alert("提示","数据错误，联系管理员","error");
